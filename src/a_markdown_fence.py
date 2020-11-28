@@ -19,6 +19,8 @@ Markdown Custom class extension for Python-Markdown
 
 """
 
+from __future__ import absolute_import
+from __future__ import unicode_literals
 from textwrap import dedent
 import markdown
 from markdown import Extension
@@ -50,7 +52,6 @@ def _handle_single_quote(s, t):
     k, v = t.split('=', 1)
     return k, v.strip("'")
 
-#=valueだけの場合?
 def _handle_key_value(s, t):
     return t.split('=', 1)
 
@@ -136,7 +137,7 @@ def parseBoolValue(value, fail_on_errors=True, preserve_none=False):
 
 CONFIG = {
     'lang_prefix': ['language-', 'Prefix prepended to the language. Default: "language-"'],
-    'pre_title_prefix': ['pre_title', 'Default: ""']
+    'pre_title_prefix': ['pre_title', 'Default:pre_title=""']
 }
 def getCONFIG(key, default=''):
     """ Return a setting for the given key or an empty string. """
@@ -191,8 +192,8 @@ class FencedBlockPreprocessor(Preprocessor):
 
                 id_attr = lang_attr = class_attr = kv_pairs = ''
                 pre_title_attr = ''
-                #langに文字があれば？
-                #configのデフォル+lang
+                #langに文字があれば
+                #configのデフォ+lang
                 if lang:
                     lang_attr = ' class="{}{}"'.format(self.config.get('lang_prefix', 'language-'), lang)
                 if classes:
@@ -200,7 +201,7 @@ class FencedBlockPreprocessor(Preprocessor):
                     class_attr = ' class="{}"'.format(' '.join(classes))
 
                 if pre_title:
-                   pre_title_attr = ' {}="{}"'.format(self.config.get('pre_title_prefix', 'def'), pre_title)
+                   pre_title_attr = ' {}="{}"'.format(self.config.get('pre_title_prefix', 'pre_title'), pre_title)
                 
                 if id:
                     id_attr = ' id="{}"'.format(id)
