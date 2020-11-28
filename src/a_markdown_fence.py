@@ -239,10 +239,13 @@ class FencedBlockPreprocessor(Preprocessor):
         for k, v in attrs:
             if k == 'id':
                 id = v
-            elif k == 'file_name':
-                file_name = v
             elif k == '.':
                 classes.append(v)
+            #最初のclassはlangなので避ける
+            #:があればfile_nameに代入するとともに''classを追加する
+            elif k == 'file_name':
+                file_name = v
+                classes.append('code-block-header')
             elif k in self.bool_options:
                 configs[k] = parseBoolValue(v, fail_on_errors=False, preserve_none=True)
             else:
